@@ -11,3 +11,11 @@ function p($var){
         " . print_r($var, true) . "</pre>";
     }
 }
+
+function serializePath($path, $seatch = '\\', $replace = '/'){
+    if(!$path){
+        return false;
+    }
+
+    return str_replace($seatch, $replace, $path);
+}
