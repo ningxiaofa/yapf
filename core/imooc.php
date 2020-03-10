@@ -9,8 +9,9 @@ class imooc
 
     static public function run()
     {
-        p('ok');
-        $route = new \core\route(); //自动加载成功
+        //p('ok');
+        $route = new \core\lib\route(); //自动加载成功
+        //p($route);
     }
 
     static function load($class)
