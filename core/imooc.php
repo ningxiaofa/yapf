@@ -2,6 +2,8 @@
 
 namespace core;
 
+use app\controller;
+
 class imooc
 {
     //处于性能的考虑[假如类已引入过一次,就不要重复引入, 这里加个临时变量[属性]来储存已经加载好的类]
@@ -12,6 +14,20 @@ class imooc
         //p('ok');
         $route = new \core\lib\route(); //自动加载成功
         //p($route);
+        $ctrlClass = $route->controller; // index
+        $action = $route->action; // index
+
+        $controllerName = $ctrlClass . 'Controller';
+        $fileController = APP . '/controller/' . $controllerName . '.php';
+        //p($fileController); G:\phpstudy_pro\WWW\front_backend\imooc/app/controller/indexController.php
+        $controller = '\\' . MODULE . '\controller\\' . $controllerName;
+        if(is_file($fileController)){
+            include $fileController;
+            $controller =  new $controller();
+            $controller->$action();
+        }else{
+            throw new \Exception('找不到控制器 ' . $controllerName);
+        }
     }
 
     static function load($class)
