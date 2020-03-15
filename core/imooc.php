@@ -23,7 +23,11 @@ class imooc
         $controller = '\\' . MODULE . '\controller\\' . $controllerName;
         if(is_file($fileController)){
             include $fileController;
-            $controller =  new $controller();
+            $controller  =  new $controller();
+            // 下面if判断自行添加[TBD]
+            if(!method_exists($controller ,$action)){
+                throw new \Exception('找不到控制器中的方法 ' . $action);
+            }
             $controller->$action();
         }else{
             throw new \Exception('找不到控制器 ' . $controllerName);
