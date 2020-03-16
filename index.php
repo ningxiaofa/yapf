@@ -21,7 +21,7 @@ if (DEBUG){
     ini_set('display_errors', 'Off');
 }
 
-include CORE . '/common/function.php';
+include CORE . '/common/functions.php';
 
 include CORE . '/imooc.php';
 
