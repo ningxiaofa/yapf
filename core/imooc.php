@@ -18,8 +18,8 @@ class imooc
         $action = $route->action; // index
 
         $controllerName = $ctrlClass . 'Controller';
-        $fileController = APP . '/controller/' . $controllerName . '.php';
-        //p($fileController); G:\phpstudy_pro\WWW\front_backend\imooc/app/controller/indexController.php
+        $fileController = APP . '/controllers/' . $controllerName . '.php';
+        //p($fileController); G:\phpstudy_pro\WWW\front_backend\imooc/app/controllers/indexController.php
         $controller = '\\' . MODULE . '\controller\\' . $controllerName;
         if(is_file($fileController)){
             include $fileController;

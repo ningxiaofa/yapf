@@ -51,7 +51,7 @@ class route
                 $i += 2;
             }
 
-            p($_GET); //ok !
+            // p($_GET); //ok !
 
         } else {
             $this->controller = 'index';
