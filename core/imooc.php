@@ -8,6 +8,7 @@ class imooc
 {
     //处于性能的考虑[假如类已引入过一次,就不要重复引入, 这里加个临时变量[属性]来储存已经加载好的类]
     static public $classMap = [];
+    public $assign = [];
 
     static public function run()
     {
@@ -62,5 +63,27 @@ class imooc
             }
         }
 
+    }
+
+    /**
+     * 视图模板赋值
+     * @param $name
+     * @param $value
+     */
+    public function assign($name, $value)
+    {
+        $this->assign[$name] = $value;
+    }
+
+    public function display($file)
+    {
+        $file = APP . '/views/' . $file;
+        if(is_file($file)){
+            // p($this->assign);exit;
+            // 将数组值打算, 每一个都变成一个单独的变量
+            // 如: ['data' => 'Hello World !', 'title' => 'this is a tile !'] ==> $data = 'Hello World !', $title = 'this is a tile !'
+            extract($this->assign); // 不能使用变量接收, 否则include的文件访问不到变量. 只能访问到用于接收的变量的值 值为count($this->assign)
+            include $file;
+        }
     }
 }

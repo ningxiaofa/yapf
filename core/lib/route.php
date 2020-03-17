@@ -10,7 +10,7 @@ class route
     public function __construct()
     {
         // p('route ok!');
-        // xx.com/index.php/index/index  => xx.com/index/index ==> 访问的是index控制器中的index()
+        // xx.com/index.php/index/index  => xx.com/index/index ==> 访问的是index控制器中的index() 也可以处理 xx.com/index/indexView
         /**
          * 1. 隐藏index.php
          * 2. 获取url 参数部分
