@@ -20,7 +20,7 @@ class imooc
         $controllerName = $ctrlClass . 'Controller';
         $fileController = APP . '/controllers/' . $controllerName . '.php';
         //p($fileController); G:\phpstudy_pro\WWW\front_backend\imooc/app/controllers/indexController.php
-        $controller = '\\' . MODULE . '\controller\\' . $controllerName;
+        $controller = '\\' . MODULE . '\controllers\\' . $controllerName;
         if(is_file($fileController)){
             include $fileController;
             $controller  =  new $controller();
