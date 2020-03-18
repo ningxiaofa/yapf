@@ -7,6 +7,9 @@ use \PDO;
 
 class indexController extends \core\imooc
 {
+    /**
+     * 加载控制器/模型
+     */
     public function index()
     {
         p('it is index action of indexController !');
@@ -18,6 +21,9 @@ class indexController extends \core\imooc
         // p($ret->fetch(PDO::FETCH_ASSOC)); // 获取一行数据, 以关联数组形式
     }
 
+    /**
+     * 加载视图
+     */
     public function loadView()
     {
         $data = 'Hello World !';
