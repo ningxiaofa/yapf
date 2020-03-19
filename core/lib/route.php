@@ -2,6 +2,8 @@
 
 namespace core\lib;
 
+use core\lib\conf;
+
 class route
 {
     public $controller;
@@ -34,7 +36,7 @@ class route
                 $this->action = $pathArr[1];
                 unset($pathArr[1]);
             }else{
-                $this->action = 'index';
+                $this->action = conf::get('action', 'route');
             }
 
             //url 多余部分转换成 GET参数 http://imooc.test/index/index/id/1 ==> id=1
@@ -54,8 +56,8 @@ class route
             // p($_GET); //ok !
 
         } else {
-            $this->controller = 'index';
-            $this->action = 'index';
+            $this->controller = conf::get('controller', 'route');
+            $this->action = conf::get('action', 'route');
         }
     }
 }
