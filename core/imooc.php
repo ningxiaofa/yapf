@@ -3,6 +3,7 @@
 namespace core;
 
 use app\controller;
+use core\lib\log;
 
 class imooc
 {
@@ -13,6 +14,10 @@ class imooc
     static public function run()
     {
         //p('ok');
+        //后面添加[启动加载日志类]
+        \core\lib\log::init();
+        \core\lib\log::log($_SERVER, 'server');
+
         $route = new \core\lib\route(); //自动加载成功
         //p($route);
         $ctrlClass = $route->controller; // index
@@ -30,6 +35,8 @@ class imooc
                 throw new \Exception('找不到控制器中的方法 ' . $action);
             }
             $controller->$action();
+            //系统敏感位置, 打上log [为测试 日志类加载 ]
+            log::log('Call controller: '. $controllerName . '   ' . 'action: ' . $action );
         }else{
             throw new \Exception('找不到控制器 ' . $controllerName);
         }

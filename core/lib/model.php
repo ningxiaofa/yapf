@@ -6,7 +6,7 @@ class model extends \PDO
 {
     public function __construct()
     {
-        /*$dbms = 'mysql';      //数据库类型
+        /*$dbms = 'mysql';    //数据库类型
         $host = 'localhost';  //数据库主机名
         $dbName = 'test';     //使用的数据库
         $username = 'root';   //数据库连接用户名
