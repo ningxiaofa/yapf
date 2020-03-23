@@ -41,9 +41,47 @@ class indexController extends \core\imooc
      */
     public function loadConf()
     {
-        // echo 'loadConf';
-        $tmp = conf :: get('controller', 'route');
-        $tmp = conf :: get('action', 'route');
-        p($tmp);
+        echo 'loadConf';
+        /** @var $tmp 下面只是测试 配置文件中默认的控制和方法, 日志里记录的仍是loadConf方法 */
+        $tmp = conf :: get('controller', 'route'); // index
+        $tmp = conf :: get('action', 'route'); // index
     }
+
+    /**
+     * 测试 composer加载[1] [结合index.php]
+     * filp/whoops
+     */
+    public function testWhoops()
+    {
+        /** 测试报错, 是否会使用我们美化的错误报错 */
+        just_test_whoops();
+
+        /*
+        界面出现[如预期]:
+        Error
+        Call to undefined function
+        app\controllers\just_test_whoops()
+        */
+    }
+
+    /**
+     * 测试 composer加载[2] [结合index.php]
+     * symfony/var-dumper
+     */
+    public function testDump(){
+        //测试 symfony/var-dumper 美化打印格式
+        dump(['name' => "value"]); // 如预期
+        exit('stop');
+
+
+        /*
+        界面如下:[颜色区分]
+        array:1 [▼
+          "name" => "value"
+        ]
+
+        stop
+        */
+    }
+
 }

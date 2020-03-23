@@ -1,0 +1,14 @@
+{
+  "name": "ningxiaofa/imooc_php_framwork",
+  "description": "php framework",
+  "type": "framework",
+  "keywords": [
+    "php",
+    "framework"
+  ],
+  "require": {
+    "php": ">= 5.6.0",
+    "filp/whoops": "*",
+    "symfony/var-dumper":"3.4.0"
+  }
+}
