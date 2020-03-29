@@ -16,7 +16,6 @@ class imooc
         //p('ok');
         //后面添加[启动加载日志类]
         \core\lib\log::init();
-        \core\lib\log::log($_SERVER, 'server');
 
         $route = new \core\lib\route(); //自动加载成功
         //p($route);

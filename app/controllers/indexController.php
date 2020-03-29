@@ -6,6 +6,7 @@ use app\models\user;
 use \PDO;
 use core\lib\model;
 use core\lib\conf;
+use app\models\testModel;
 
 class indexController extends \core\imooc
 {
@@ -82,6 +83,131 @@ class indexController extends \core\imooc
 
         stop
         */
+    }
+
+    /**
+     * 测试加载Medoo 这种方式不推荐, 应该使用model基类方式
+     */
+    public function testMedoo()
+    {
+        $model = new model();
+        dump($model);
+
+        //查询语句
+        $data = $model->select("test", [
+            "name",
+            "id"
+        ], [
+            "id[>]" => 1
+        ]);
+
+        dump($data);
+    }
+
+    //插入语句
+    public function insert()
+    {
+        $model = new testModel();
+        $model->insert($model->table, [
+            "name" => "foo123",
+        ]);
+
+        dump($model->id());
+    }
+
+    /**
+     * 使用model基类[继承]方式 app/models/testModel.php
+     */
+    public function testBaseModel()
+    {
+        $testModel = new testModel();
+
+        $ret = $testModel->all();
+
+        dump($ret);
+    }
+
+    /**
+     * 获取一条记录 $id 应该如何传递进来?
+     */
+    public function getOne()
+    {
+        $id = 4;
+        $ret = (new testModel())->getOne($id);
+
+        dump($ret);
+    }
+
+    //写入[更新与新增]
+    public function save()
+    {
+        //测试请求参数数据
+        $array = [
+            'id' => 1,  //带有id就是更新
+            'name' => 'just to test'
+        ];
+        $where = ['name' => 'just to test']; //一般有id就没有where条件
+        $ret = (new testModel())->save($array, $where);
+        dump($ret);
+    }
+
+    //根据id更新
+    public function setOne()
+    {
+        //模拟接收参数
+        $data = [
+            'name' => 'hello world!',
+        ];
+        $ret = (new testModel())->setOne(4, $data);
+        //return $ret;
+
+        dump($ret);
+    }
+
+    //新增
+    public function addOne()
+    {
+        //参数模拟
+        $data = [ //同时插入多条
+           [ 'name' => 'hello william !'],
+           [ 'name' => 'hello william 123!'],
+        ];
+        $ret = (new testModel())->add($data);
+        dump($ret);
+        //return $ret;
+    }
+
+    //删除
+    public function delById()
+    {
+        //模拟参数列表
+        $id = [ //删除多条
+            1,
+            2,
+            3
+        ];
+        //删除一条
+        //$id = 1;
+
+        $ret = (new testModel())->delById($id);
+        dump($ret);
+        //return $ret;
+    }
+
+    //删除[where条件]
+    public function delByWhere()
+    {
+        //模拟参数
+        $where = [
+            "AND" => [
+                "name[!]" => "foo",
+                "age[>]" => 15,
+            ]
+        ];
+
+        $ret = (new testModel())->delByWhere($where);
+        dump($ret);
+        //return $ret;
     }
 
 }
