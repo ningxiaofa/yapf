@@ -69,7 +69,7 @@ class kernel
 
         // 在这个类中要实现的功能是:
         // 把$class = '\core\route'; 转化为 下面的路径
-        // KERNEL . '/core/route.php';
+        // APP_BASE_PATH . '/core/route.php';
 
         //$class = serializePath($class, '\\', '\\'); // 输出: \core\route 下同
         //$class = '\\' . $class;
@@ -78,7 +78,7 @@ class kernel
             return true;
         } else {
             $class = serializePath('/' . $class);
-            $file = serializePath(KERNEL . $class . '.php', '\\', '/');
+            $file = serializePath(APP_BASE_PATH . $class . '.php', '\\', '/');
             if (is_file($file)) {
                 include $file;
                 self::$classMap[$class] = $class;

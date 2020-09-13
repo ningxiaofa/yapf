@@ -8,9 +8,9 @@
  * 3.启动框架
  */
 
-define('KERNEL', realpath('./'));
-define('CORE', KERNEL . '/core');
-define('APP', KERNEL . '/app');
+define('APP_BASE_PATH', realpath('./'));
+define('CORE', APP_BASE_PATH . '/core');
+define('APP', APP_BASE_PATH . '/app');
 define('MODULE', 'app');
 
 /** 应该根据[检测]环境而定[TBD] */

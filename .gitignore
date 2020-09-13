@@ -3,3 +3,4 @@
 vendor/
 .vscode/
 core/conf/database.php
+.history

@@ -26,7 +26,7 @@ class conf
         }
         // p(1); 用于检查是否多次加载 配合 app/controllers/indexController.php 中多次调用 conf::get();
 
-        $filePath = KERNEL .'\core\conf\\' . $file . '.php';
+        $filePath = APP_BASE_PATH .'\core\conf\\' . $file . '.php';
         if(is_file($filePath)){
             $conf = include $filePath;
 
@@ -47,7 +47,7 @@ class conf
             return static ::$conf[$file];
         }
 
-        $filePath = KERNEL .'\core\conf\\' . $file . '.php';
+        $filePath = APP_BASE_PATH .'\core\conf\\' . $file . '.php';
         if(is_file($filePath)){
             $conf = include $filePath;
             static::$conf[$file] = $conf;
