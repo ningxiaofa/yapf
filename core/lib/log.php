@@ -25,9 +25,9 @@ class log
         static::$class = new $class;
     }
 
-    static public function log($message, $file = 'log')
+    static public function log($message, $file = 'log', $type = 'access')
     {
-        static::$class->log($message, $file);
+        static::$class->log($message, $file, $type);
     }
 
 }

@@ -8,7 +8,7 @@ use core\lib\model;
 use core\lib\conf;
 use app\models\testModel;
 
-class indexController extends \core\imooc
+class indexController extends \core\kernel
 {
     /**
      * 加载控制器/模型 以及测试加载配置[数据库]类

@@ -8,9 +8,9 @@
  * 3.启动框架
  */
 
-define('IMOOC', realpath('./'));
-define('CORE', IMOOC . '/core');
-define('APP', IMOOC . '/app');
+define('KERNEL', realpath('./'));
+define('CORE', KERNEL . '/core');
+define('APP', KERNEL . '/app');
 define('MODULE', 'app');
 
 /** 应该根据[检测]环境而定[TBD] */
@@ -42,12 +42,12 @@ if (DEBUG){
 
 include CORE . '/common/functions.php';
 
-include CORE . '/imooc.php';
+include CORE . '/kernel.php';
 
 /**
  * 加载路由类, 有三个步骤
  * 1. 需要一个方法 spl_autoload_register 作用: 当我们new一个类时, 如果不存在, 就会触发这个方法, 给这个方法[函数]传一个参数.
  * 2.
  */
-spl_autoload_register('\core\imooc::load'); //要带上命令空间
-\core\imooc::run();
+spl_autoload_register('\core\kernel::load'); //要带上命令空间
+\core\kernel::run();

@@ -6,14 +6,14 @@ use core\lib\conf;
 
 class file
 {
-    public $path; // 日志储存位置
+    public $path = []; // 日志储存位置
 
     public function __construct()
     {
         $this->path =  (conf::get('option', 'log'))['path'];
     }
 
-    public function log($message, $file = 'log')
+    public function log($message, $file = 'log', $type = 'access')
     {
         /**
          * 思路:
@@ -32,7 +32,7 @@ class file
          * 3. 使用[打上]日志 具体何处暂省略.
          */
 
-        $dirPath = $this->path . date('YmdH');
+        $dirPath = $this->path[$type] . date('YmdH');
         if(!is_dir($dirPath)){
             mkdir($dirPath, '0777', true);
         }
