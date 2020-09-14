@@ -8,13 +8,19 @@
  * 3.启动框架
  */
 
-define('APP_BASE_PATH', realpath('./'));
-define('CORE', APP_BASE_PATH . '/core');
-define('APP', APP_BASE_PATH . '/app');
-define('MODULE', 'app');
+defined('APP_BASE_PATH') or define('APP_BASE_PATH', realpath('./'));
+defined('CORE') or define('CORE', APP_BASE_PATH . '/core');
+defined('APP') or define('APP', APP_BASE_PATH . '/app');
+// defined('PUBLIC_PATH') or define('PUBLIC_PATH', APP_BASE_PATH . '/public'); // 使用TBD  至于使用PUBLIC常量名报错的原因TBD
+defined('MODULE') or define('MODULE', 'app');
 
-/** 应该根据[检测]环境而定[TBD] */
-define('DEBUG', true);
+/** 应该根据[检测]环境而定, 方法有很多, 这里用的是HTTP_HOST检测的方式*/
+$env = ['imooc.test']; // 非生产环境
+if(in_array($_SERVER['HTTP_HOST'], $env)){
+    defined('DEBUG') or define('DEBUG', true);
+}else{
+    defined('DEBUG') or define('DEBUG', false);
+}
 
 /** [使用composer之前] 引入composer的vendor的类 [ Register The Auto Loader ] */
 require __DIR__.'/vendor/autoload.php';
