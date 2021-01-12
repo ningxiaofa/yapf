@@ -37,7 +37,13 @@ class kernel
                     // exit('stop');
                     throw new Exception('NOT FOUND ACTION: ' . $action . ' OF CONTROLLER: ' . $controllerName, 404);
                 }
-                $controller->$action();
+                $ret = $controller->$action();
+                // If return value is not null. then converse it to be json string
+                if($ret){
+                    header('content-type:application/json;charset=utf-8');
+                    echo json_encode($ret);             
+                }
+
                 // 系统敏感位置, 打上log [为测试 日志类加载]
                 log::log('ACCESS  CONTROLLER: '. $controllerName . '  ' . 'ACTION: ' . $action);
             }else{

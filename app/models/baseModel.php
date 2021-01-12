@@ -4,14 +4,13 @@ namespace app\models;
 
 use core\lib\model;
 
-class testModel extends model
+class baseModel extends model implements baseInterface
 {
-    public $table = 'test';
+    public $table; // 子类必须定义该属性，并赋值. 如何借助PHP语言本身约束？TBD
 
     public $primaryKey = 'id';
 
     //curd操作
-
     public function all()
     {
         return $this->select($this->table, '*');
@@ -65,7 +64,7 @@ class testModel extends model
     }
 
     //删除[通过主键id 可以多条删除]
-    public function  delById($id)
+    public function delById($id)
     {
         if(is_array($id)){
             $ret = $this->delete($this->table, [
