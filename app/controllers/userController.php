@@ -36,4 +36,21 @@ class userController extends \core\kernel
         ];
     }
 
+    public function login()
+    {
+        // p('login');
+        p($_SERVER);
+        p($_POST);
+    }
+
+    public function register()
+    {
+        // p('register');
+        p($_SERVER);
+        $data = file_get_contents('php://input');
+        p($data);
+        //url 多余部分转换成 GET参数 http://imooc.test/index/index/id/1 ==> id=1
+        // index/index/id/1 ...  ==> id/1 ...
+        //p($pathArr);
+    }
 }

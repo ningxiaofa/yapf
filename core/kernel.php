@@ -33,7 +33,7 @@ class kernel
                 $controller  =  new $controller();
                 // 下面if判断自行添加[TBD]
                 // exit('stop');
-                if(!method_exists($controller ,$action)){
+                if(!method_exists($controller, $action)){
                     // exit('stop');
                     throw new Exception('NOT FOUND ACTION: ' . $action . ' OF CONTROLLER: ' . $controllerName, 404);
                 }
@@ -41,7 +41,7 @@ class kernel
                 // If return value is not null. then converse it to be json string
                 if($ret){
                     header('content-type:application/json;charset=utf-8');
-                    echo json_encode($ret);             
+                    echo json_encode($ret);
                 }
 
                 // 系统敏感位置, 打上log [为测试 日志类加载]
