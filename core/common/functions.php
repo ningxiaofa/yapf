@@ -34,36 +34,68 @@ if (!function_exists('serializePath')) {
 
 /**
  * Get request queryString params
+ * return arry
+ */
+if (!function_exists('getQsParams')) {
+    function getQsParams($key = NULL)
+    {
+        if(!$_SERVER['QUERY_STRING']) return [];
+
+        $strArr = explode('&', trim($_SERVER['QUERY_STRING'], '&'));
+        $paramArr = [];
+        foreach($strArr as $value){
+            $valueArr = explode('=', $value);
+            $paramArr[$valueArr[0]] = $valueArr[1];
+        }
+
+        return $key ? $paramArr[$key] : $paramArr;
+    }
+}
+
+/**
+ * Get request url params
+ * return arry
  */
 if (!function_exists('getUrlParams')) {
-    function getUrlParams()
+    function getUrlParams($key =NULL)
     {
-        $params = $_SERVER['REQUEST_URI'];
-        // TBD
-        return $params;
+        return $key ? $_GET[$key] : $_GET;
     }
 }
 
 /**
  * Get request body params
+ * return array/string
  */
 if (!function_exists('getBodyParams')) {
-    function getBodyParams()
+    function getBodyParams($key = NULL)
     {
-        $params = null;
+        $params = [];
 
-        switch ($_SERVER['CONTENT_TYPE']) {
-            case "application/json":
-                $params = json_decode(file_get_contents('php://input'), true);
-                break;
-            case "application/x-www-form-urlencoded":
-            case "application/x-www-form-urlencoded":
-                $params = $_POST;
-                break;
-            default:
-                break;
+        $contentType = $_SERVER['CONTENT_TYPE'];
+        if ($contentType == 'application/json') {
+            $params = json_decode(file_get_contents('php://input'), true);
+        } else if ($contentType == 'application/x-www-form-urlencoded') {
+            $params = $_POST;
+        } else if (stripos($contentType, 'multipart/form-data') > -1) {
+            $params = $_POST;
         }
 
-        return $params;
+        return $key ? $params['$key'] : $params;
+    }
+}
+
+/**
+ * Get request total params
+ * return array/string
+ */
+if (!function_exists('getParams')) {
+    function getParams($key = NULL)
+    {
+        $paramArr = array_merge(getUrlParams(), getBodyParams());
+        if($key){
+            return $paramArr[$key] ? $paramArr[$key] : NULL;
+        }
+        return $paramArr;
     }
 }

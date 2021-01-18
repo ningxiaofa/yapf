@@ -26,8 +26,13 @@ class route
 
             // /index/index
             $path = $_SERVER['REQUEST_URI'];
+            // 处理 REQUEST_URI 为标准的 URI  
+            $index = stripos($path, '?');
+            if($index > -1) {
+                $path = substr($path, 0, $index); // /index/index/name/william?age=27 ==> /index/index/name/william
+            }
             $pathArr = explode('/', trim($path, '/'));
-            //p($pathArr);
+
             if(isset($pathArr[0])){
                 $this->controller = $pathArr[0];
                 unset($pathArr[0]);
@@ -53,6 +58,8 @@ class route
                 $i += 2;
             }
 
+            // Add queryString params into $_GET
+            $_GET = array_merge($_GET, getQsParams());
             // p($_GET); //ok !
 
         } else {

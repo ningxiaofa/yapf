@@ -2,26 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\user;
-use \PDO;
-use core\lib\model;
-use core\lib\conf;
 use app\models\userModel;
 
 class userController extends \core\kernel
 {
     public function index()
     {
+        exit('Just test');
         $model = new userModel();
-
-        // return [
-        //     'code' => 1,
-        //     'msg' => 'success',
-        //     'data' => [
-        //         1,2,3
-        //     ]
-        // ];
-
         $model->insert($model->table, [
             "username" => "foo123",
             "password" => "123456",
@@ -36,17 +24,45 @@ class userController extends \core\kernel
         ];
     }
 
+    /**
+     * User list
+     */
+    public function list()
+    {
+        $model = new userModel();
+        $rows = $model->all();
+
+        return [
+            'code' => 1,
+            'msg' => 'success',
+            'rows' => $rows
+        ];
+    }
+
+    /**
+     * User detail
+     */
+    public function detail() {
+        $id = getParams('id');
+        $model = new userModel();
+        $row = $model->getOne($id);
+
+        return [
+            'code' => 1,
+            'msg' => 'success',
+            'row' => $row
+        ];
+    }
+
     public function login()
     {
         // p('login');
-        p($_SERVER);
-        p($_POST);
+        return getParams();
     }
 
     public function register()
     {
         // p('register');
-        p($_SERVER);
         $data = file_get_contents('php://input');
         p($data);
         //url 多余部分转换成 GET参数 http://imooc.test/index/index/id/1 ==> id=1

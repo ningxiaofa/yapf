@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\user;
 use \PDO;
 use core\lib\model;
 use core\lib\conf;
