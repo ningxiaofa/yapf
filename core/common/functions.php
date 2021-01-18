@@ -34,7 +34,7 @@ if (!function_exists('serializePath')) {
 
 /**
  * Get request queryString params
- * return arry
+ * return arry/string
  */
 if (!function_exists('getQsParams')) {
     function getQsParams($key = NULL)
@@ -54,7 +54,7 @@ if (!function_exists('getQsParams')) {
 
 /**
  * Get request url params
- * return arry
+ * return arry/string
  */
 if (!function_exists('getUrlParams')) {
     function getUrlParams($key =NULL)
