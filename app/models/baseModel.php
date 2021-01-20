@@ -23,6 +23,11 @@ class baseModel extends model implements baseInterface
         ]);
     }
 
+    public function getOneByWhere($fields = '*', array $where = [])
+    {
+        return $this->get($this->table, $fields, $where);
+    }
+
     //下面出现报错!! 具体好的实践写法,TBD
 //    public function insert($array)
 //    {

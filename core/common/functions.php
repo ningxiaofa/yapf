@@ -99,3 +99,32 @@ if (!function_exists('getParams')) {
         return $paramArr;
     }
 }
+
+/**
+ * Response successly
+ * return array
+ */
+if (!function_exists('success')) {
+    function success($data = [], $msg = 'success')
+    {
+        return [
+            'code' => 1,
+            'msg' => $msg,
+            'data' => is_array($data) || is_object($data) ? $data : [$data]
+        ];
+    }
+}
+
+/**
+ * Response failly
+ * return array
+ */
+if (!function_exists('fail')) {
+    function fail($msg = 'fail')
+    {
+        return [
+            'code' => 1,
+            'msg' => $msg
+        ];
+    }
+}
