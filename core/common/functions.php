@@ -120,10 +120,10 @@ if (!function_exists('success')) {
  * return array
  */
 if (!function_exists('fail')) {
-    function fail($msg = 'fail')
+    function fail($msg = 'fail', $code = 0)
     {
         return [
-            'code' => 1,
+            'code' => $code,
             'msg' => $msg
         ];
     }

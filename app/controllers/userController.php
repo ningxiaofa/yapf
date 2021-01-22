@@ -54,7 +54,7 @@ class userController extends \core\kernel
     {
         $params = getParams();
         // 1. Validate whether logined
-        if($this->_isLogined($params['username'])){
+        if($this->_isLogined()){
             return success(['username' => $params['username']], 'Already logined');
         };        
 
@@ -63,7 +63,7 @@ class userController extends \core\kernel
         if(!empty($msg)) return fail($msg);
 
         // 3. Write user info to session
-        (new session)::set($userinfo['username'], $userinfo);
+        (new session)::set('userinfo', $userinfo);
         
         // 4. Return sucees
         return success($userinfo, 'login success');
@@ -72,9 +72,9 @@ class userController extends \core\kernel
     /**
      * Check whether logined
      */
-    private function _isLogined($username)
+    private function _isLogined()
     {
-        if((new session())::get($username)){
+        if((new session())::get('userinfo')){
             return true;
         }
     }
@@ -144,6 +144,12 @@ class userController extends \core\kernel
             $msg = 'email format incorrect';
         }
         return $msg;
+    }
+
+    public function logout()
+    {
+        (new session())::clear('userinfo');
+        return success([], 'logout success');
     }
 
 }

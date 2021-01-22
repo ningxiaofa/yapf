@@ -11,9 +11,9 @@ class baseModel extends model implements baseInterface
     public $primaryKey = 'id';
 
     //curd操作
-    public function all()
+    public function all($where = [])
     {
-        return $this->select($this->table, '*');
+        return $this->select($this->table, '*', $columns = null, $where = []);
     }
 
     public function getOne($id)

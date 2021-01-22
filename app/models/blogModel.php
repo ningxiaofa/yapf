@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use core\common\session;
+
 class blogModel extends baseModel
 {
     public $table = 'blogs';
@@ -24,19 +26,28 @@ class blogModel extends baseModel
     {
         $ret = [];
 
-        foreach($data as $key){
+        foreach (static::$fill as $key) {
             $ret[$key] = $data[$key];
         }
+
+        // Fill created_user, updated_user
+        $userinfo = (new session())::get('userinfo');
+        if (empty($userinfo)) {
+            return;
+        }
+        $ret['created_user'] = (int)$userinfo['id'];
+        $ret['updated_user'] = (int)$userinfo['id'];
+
         return array_merge($ret, $this->_fillTimestamp());
     }
 
     protected function _fillTimestamp()
     {
-        if(!empty(static::$timestamp)){
+        if (!empty(static::$timestamp)) {
             $data = [];
 
             $timestamp = time();
-            foreach(static::$timestamp as $key){
+            foreach (static::$timestamp as $key) {
                 $data[$key] = $timestamp;
             }
 
@@ -44,4 +55,3 @@ class blogModel extends baseModel
         }
     }
 }
-
