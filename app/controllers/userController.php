@@ -54,8 +54,8 @@ class userController extends \core\kernel
     {
         $params = getParams();
         // 1. Validate whether logined
-        if($this->_isLogined()){
-            return success(['username' => $params['username']], 'Already logined');
+        if($userinfo = $this->_isLogined()){
+            return success($userinfo, 'Already logined');
         };        
 
         // 2. Validate parameters and username/password whether correct
@@ -74,9 +74,7 @@ class userController extends \core\kernel
      */
     private function _isLogined()
     {
-        if((new session())::get('userinfo')){
-            return true;
-        }
+        return (new session())::get('userinfo');
     }
 
     /**
@@ -148,8 +146,10 @@ class userController extends \core\kernel
 
     public function logout()
     {
-        (new session())::clear('userinfo');
-        return success([], 'logout success');
+        $session = new session();
+        $userinfo = $session::get('userinfo');
+        $session::clear('userinfo');
+        return success($userinfo ? $userinfo : NULl, $userinfo ? 'Logout success' : 'Already logout');
     }
 
 }
