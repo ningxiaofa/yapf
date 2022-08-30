@@ -2,12 +2,12 @@
 
 #### 环境[编写时]
 ```bash
-WAMP: phpstudy pro
-工具: PHPstorm
-php 7.0
-mysql 8.0
-数据库: dbname : test
-数据表: table: test
+WAMP: phpstudy pro / docker_lnmp
+工具: PHPstorm / VSCode
+php: 7.0
+mysql: 8.0
+数据库/数据表: test/test
+账户/密码: root/root
 ```
 
 #### 目录结构
