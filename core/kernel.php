@@ -11,6 +11,8 @@ class kernel
     //处于性能的考虑[假如类已引入过一次,就不要重复引入, 这里加个临时变量[属性]来储存已经加载好的类]
     static public $classMap = [];
     public $assign = [];
+    static public $controllerPath = APP . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR;
+    static public $viewPath = APP . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR;
 
     static public function run()
     {
@@ -20,34 +22,37 @@ class kernel
             \core\lib\log::init();
 
             $route = new \core\lib\route(); //自动加载成功
-            //p($route);
+            // p($route); exit;
             $ctrlClass = $route->controller; // index
             $action = $route->action; // index
 
             $controllerName = $ctrlClass . 'Controller';
-            $fileController = APP . '/controllers/' . $controllerName . '.php';
-            //p($fileController); G:\phpstudy_pro\WWW\front_backend\imooc/app/controllers/indexController.php
+            $fileController = static::$controllerPath . $controllerName . '.php';
+            // p($fileController);
+            // Windows: G:\phpstudy_pro\WWW\front_backend\yapf\app\controllers\indexController.php
+            // Mac: /Users/huangbaoyin/Documents/Env/docker-lnmp-dev-env-sh/html/yapf.test/app/controllers/indexController.php
+            // Docker: /var/www/html/yapf.test/app/controllers/indexController.php
             $controller = '\\' . MODULE . '\controllers\\' . $controllerName;
-            if(is_file($fileController)){
+            if (is_file($fileController)) {
                 include $fileController;
-                $controller  =  new $controller();
+                $controller = new $controller();
                 // 下面if判断自行添加[TBD]
                 // exit('stop');
-                if(!method_exists($controller ,$action)){
+                if (!method_exists($controller, $action)) {
                     // exit('stop');
                     throw new Exception('NOT FOUND ACTION: ' . $action . ' OF CONTROLLER: ' . $controllerName, 404);
                 }
                 $controller->$action();
                 // 系统敏感位置, 打上log [为测试 日志类加载]
-                log::log('ACCESS  CONTROLLER: '. $controllerName . '  ' . 'ACTION: ' . $action);
-            }else{
+                log::log('ACCESS  CONTROLLER: ' . $controllerName . '  ' . 'ACTION: ' . $action);
+            } else {
                 throw new Exception('NOT FOUND CONTROLLER: ' . $controllerName, 404);
             }
         } catch (Exception $e) {
             // 根据Code做针对性处理
-            switch($e->getCode()){
+            switch ($e->getCode()) {
                 case 404:
-                    include_once APP . '\views\404.html';
+                    include_once(static::$viewPath . '404.html');
                     break;
                 default:
                     break;
@@ -86,7 +91,6 @@ class kernel
                 return false;
             }
         }
-
     }
 
     /**
@@ -102,7 +106,7 @@ class kernel
     public function display($file)
     {
         $file = APP . '/views/' . $file;
-        if(is_file($file)){
+        if (is_file($file)) {
             // p($this->assign);exit;
             // 将数组值打算, 每一个都变成一个单独的变量
             // 如: ['data' => 'Hello World !', 'title' => 'this is a tile !'] ==> $data = 'Hello World !', $title = 'this is a tile !'
