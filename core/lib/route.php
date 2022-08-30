@@ -19,8 +19,7 @@ class route
          * 3. 返回对应的控制器和方法
          */
 
-        //p($_SERVER);
-        if(isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] != '/'){
+        if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] != '/') {
             // 特殊情况1: 当http://imooc.test/时, $_SERVER['REQUEST_URI'] = '/';
             // 特殊情况2: 当http://imooc.test/index
 
@@ -28,14 +27,14 @@ class route
             $path = $_SERVER['REQUEST_URI'];
             $pathArr = explode('/', trim($path, '/'));
             //p($pathArr);
-            if(isset($pathArr[0])){
+            if (isset($pathArr[0])) {
                 $this->controller = $pathArr[0];
                 unset($pathArr[0]);
             }
-            if(isset($pathArr[1])){
+            if (isset($pathArr[1])) {
                 $this->action = $pathArr[1];
                 unset($pathArr[1]);
-            }else{
+            } else {
                 $this->action = conf::get('action', 'route');
             }
 
@@ -46,8 +45,8 @@ class route
             $pathArr = array_values($pathArr); //重新索引
             $count = count($pathArr);
             $i = 0;
-            while($i < $count){
-                if(isset($pathArr[$i + 1])){ //避免出现计数, 导致数组越界出现异常
+            while ($i < $count) {
+                if (isset($pathArr[$i + 1])) { //避免出现计数, 导致数组越界出现异常
                     $_GET[$pathArr[$i]] = $pathArr[$i + 1];
                 }
                 $i += 2;

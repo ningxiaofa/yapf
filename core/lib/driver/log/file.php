@@ -10,7 +10,7 @@ class file
 
     public function __construct()
     {
-        $this->path =  (conf::get('option', 'log'))['path'];
+        $this->path = (conf::get('option', 'log'))['path'];
     }
 
     public function log($message, $file = 'log', $type = 'access')
@@ -33,8 +33,11 @@ class file
          */
 
         $dirPath = $this->path[$type] . date('YmdH');
-        if(!is_dir($dirPath)){
-            mkdir($dirPath, '0777', true);
+        if (!is_dir($dirPath)) {
+            $ret = mkdir($dirPath, 0777, true);
+            if (!$ret) {
+                die('Failed to create folders:' . $dirPath);
+            }
         }
         // p($dirPath . '/' . $file . '.php');
         // exit;
