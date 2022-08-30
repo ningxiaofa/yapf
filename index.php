@@ -15,7 +15,7 @@ defined('APP') or define('APP', APP_BASE_PATH . '/app');
 defined('MODULE') or define('MODULE', 'app');
 
 /** 应该根据[检测]环境而定, 方法有很多, 这里用的是HTTP_HOST检测的方式*/
-$env = ['imooc.test']; // 非生产环境
+$env = ['yapf.test']; // 非生产环境
 if(in_array($_SERVER['HTTP_HOST'], $env)){
     defined('DEBUG') or define('DEBUG', true);
 }else{
