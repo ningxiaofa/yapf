@@ -1,23 +1,23 @@
-## 框架介绍 - Yet another php framework
+## Framework introduce - Yet another php framework
 
-#### 环境[编写时]
+#### Environment [when developing]
 ```bash
-    WAMP: phpstudy pro
-    工具: PHPstorm
-    php 7.0
-    mysql 8.0
-    数据库: dbname : test
-    数据表: table: test
+WAMP: phpstudy pro / docker_lnmp
+IDE: PHPstorm / VSCode
+php: 7.0
+mysql: 8.0
+dbname/datatable: test/test
+username/password: root/root
 ```
 
-#### 目录结构
+#### Directory structure
 ```bash
-入口文件: index.php
-MVC目录: app
-框架核心文件: kerne.php
-配置目录: core\conf
-框架组件目录：core\lib
-日志目录: log
+Entry file: index.php
+MVC directory: app
+Framework core file: kerne.php
+Configure directory: core\conf
+Framework component directory：core\lib
+Log directory: log
 ```
-#### 后续补充
+#### Follow up supplement
 ...
