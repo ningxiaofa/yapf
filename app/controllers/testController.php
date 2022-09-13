@@ -2,6 +2,10 @@
 
 namespace app\controllers;
 
+use GuzzleHttp\Client;
+use Exception;
+use League\Csv\Reader;
+
 class testController
 {
     public function index()
