@@ -23,11 +23,11 @@ if (!function_exists('p'))
  */
 if (!function_exists('serializePath'))
 {
-    function serializePath($path, $seatch = '\\', $replace = '/'){
+    function serializePath($path, $search = '\\', $replace = '/'){
         if(!$path){
             return false;
         }
 
-        return str_replace($seatch, $replace, $path);
+        return str_replace($search, $replace, $path);
     }
 }
