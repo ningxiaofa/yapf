@@ -14,7 +14,7 @@ username/password: root/root
 ```bash
 Entry file: index.php
 MVC directory: app
-Framework core file: kerne.php
+Framework core file: Kernel.php
 Configure directory: core\conf
 Framework component directory：core\lib
 Log directory: log
