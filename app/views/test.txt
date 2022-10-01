@@ -9,7 +9,7 @@
 <body>
     <p style="color: red;">index视图</p>
     <h3><?php echo $title; ?></h3>
-    <!--并不是只能为php后缀, html后最也是可以-->
+    <!--并不是只能为php后缀, html后最也是可以, 只不过如果不是php后缀，脚本就不会交给PHP解释执行，会产生与预期不符的结果-->
     <h3><?php echo $data; ?></h3>
 </body>
 </html>
