@@ -34,7 +34,7 @@ class IndexController extends \core\kernel
         $data = 'Hello World !';
         $this->assign('data', $data);
         $this->assign('title', 'this is a title !');
-        $file = 'index.html';
+        $file = 'index.php';
         $file = 'test.txt';  // 使用txt后缀 php/浏览器 也依然可以解析php脚本以及HTML文档
         $this->display($file);
     }

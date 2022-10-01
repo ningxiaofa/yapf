@@ -52,7 +52,7 @@ class Kernel
             // 根据Code做针对性处理
             switch ($e->getCode()) {
                 case 404:
-                    include_once(static::$viewPath . '404.html');
+                    include_once(static::$viewPath . '404.php');
                     break;
                 default:
                     break;
