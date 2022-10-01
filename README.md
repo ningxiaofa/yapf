@@ -21,3 +21,10 @@ Log directory: log
 ```
 #### Follow up supplement
 ...
+
+#### Install requirements -- Note: PHP Version
+```
+php72 composer.phar install
+or
+php composer.phar install
+```

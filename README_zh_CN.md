@@ -21,3 +21,10 @@ MVC目录: app
 ```
 #### 后续补充
 ...
+
+#### 安装依赖 -- 注意: PHP版本
+```
+php72 composer.phar install
+or
+php composer.phar install
+```
