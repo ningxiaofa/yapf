@@ -1,5 +1,5 @@
 .idea/
-*log.php
+runtime/
 vendor/
 .vscode/
 .history
