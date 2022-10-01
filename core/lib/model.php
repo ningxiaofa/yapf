@@ -2,9 +2,12 @@
 
 namespace core\lib;
 
-use Medoo\Medoo; //文档见: https://medoo.lvtao.net/doc.php
+use Medoo\Medoo; 
+//文档见: 
+// https://medoo.in/api/select
+// https://medoo.lvtao.net/doc.php
 
-class model extends Medoo // \PDO [之前是继承\PDO]
+class Model extends Medoo // \PDO [之前是继承\PDO]
 {
     public function __construct()
     {

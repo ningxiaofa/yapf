@@ -2,9 +2,9 @@
 
 namespace app\models;
 
-use core\lib\model;
+use core\lib\Model;
 
-class testModel extends model
+class Test extends Model
 {
     public $table = 'test';
 

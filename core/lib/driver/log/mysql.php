@@ -2,7 +2,7 @@
 
 namespace core\lib\driver\log;
 
-class mysql
+class Mysql
 {
     // 这里应该是存储到数据库中的逻辑,暂时省略.
     // 改进: 应该面向接口编程.

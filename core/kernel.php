@@ -6,7 +6,7 @@ use app\controller;
 use core\lib\log;
 use \Exception;
 
-class kernel
+class Kernel
 {
     //处于性能的考虑[假如类已引入过一次,就不要重复引入, 这里加个临时变量[属性]来储存已经加载好的类]
     static public $classMap = [];
@@ -21,7 +21,7 @@ class kernel
             //后面添加[启动加载日志类]
             \core\lib\log::init();
 
-            $route = new \core\lib\route(); //自动加载成功
+            $route = new \core\lib\Route(); //自动加载成功
             // p($route); exit;
             $ctrlClass = $route->controller; // index
             $action = $route->action; // index

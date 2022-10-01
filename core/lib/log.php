@@ -2,7 +2,7 @@
 
 namespace core\lib;
 
-class log
+class Log
 {
     /**
      * 日志类 可以放在 文件, 数据库 , 甚至是缓存中[这个斟酌]

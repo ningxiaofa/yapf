@@ -4,7 +4,7 @@ namespace core\lib;
 
 use core\lib\conf;
 
-class route
+class Route
 {
     public $controller;
     public $action;
@@ -42,7 +42,7 @@ class route
             // index/index/id/1 ...  ==> id/1 ...
             //p($pathArr);
 
-            $pathArr = array_values($pathArr); //重新索引
+            $pathArr = array_values($pathArr); // 重新索引
             $count = count($pathArr);
             $i = 0;
             while ($i < $count) {

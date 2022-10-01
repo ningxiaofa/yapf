@@ -14,10 +14,17 @@ username/password: root/root
 ```bash
 Entry file: index.php
 MVC directory: app
-Framework core file: kerne.php
+Framework core file: Kernel.php
 Configure directory: core\conf
 Framework component directory：core\lib
 Log directory: log
 ```
 #### Follow up supplement
 ...
+
+#### Install requirements -- Note: PHP Version
+```
+php72 composer.phar install
+or
+php composer.phar install
+```
