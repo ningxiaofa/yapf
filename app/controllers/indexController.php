@@ -2,22 +2,23 @@
 
 namespace app\controllers;
 
-use app\models\user;
 use \PDO;
-use core\lib\model;
-use core\lib\conf;
-use app\models\testModel;
+use core\lib\Model;
+use core\lib\Conf;
+use app\models\Test;
 
-class indexController extends \core\kernel
+class IndexController extends \core\kernel
 {
     /**
      * 加载控制器/模型 以及测试加载配置[数据库]类
+     * http://yapf.test:8080
+     * http://yapf.test:8080/index/index
      */
     public function index()
     {
         p('it is index action of indexController !');
         //test model class load
-        $model = new model();
+        $model = new Model();
         $sql = "SELECT * FROM test";  //数据表的名字不能为 table[关键字] 这里改为test
         $ret = $model->query($sql);
         p($ret->fetchAll(PDO::FETCH_CLASS)); // 返回 二维数组[内层数组为关联数组[列名为key]]
@@ -26,6 +27,7 @@ class indexController extends \core\kernel
 
     /**
      * 加载视图
+     * http://yapf.test:8080/index/loadview
      */
     public function loadView()
     {
@@ -42,10 +44,11 @@ class indexController extends \core\kernel
      */
     public function loadConf()
     {
-        echo 'loadConf';
+        echo 'loadConf <br/>';
         /** @var $tmp 下面只是测试 配置文件中默认的控制和方法, 日志里记录的仍是loadConf方法 */
-        $tmp = conf :: get('controller', 'route'); // index
-        $tmp = conf :: get('action', 'route'); // index
+        $defaultController = conf :: get('controller', 'route'); // index
+        $defaultAction = conf :: get('action', 'route'); // index
+        var_dump($defaultController, $defaultAction);
     }
 
     /**
@@ -90,24 +93,31 @@ class indexController extends \core\kernel
      */
     public function testMedoo()
     {
-        $model = new model();
+        $model = new Model();
         dump($model);
 
         //查询语句
+        $data = $model->select("test", '*');
+        dump($data);
+
+        $data = $model->select("test", '*', [
+            "id[>]" => 1
+        ]);
+        dump($data);
+
         $data = $model->select("test", [
-            "name",
+            "username",
             "id"
         ], [
             "id[>]" => 1
         ]);
-
         dump($data);
     }
 
     //插入语句
     public function insert()
     {
-        $model = new testModel();
+        $model = new Test();
         $model->insert($model->table, [
             "name" => "foo123",
         ]);
@@ -120,7 +130,7 @@ class indexController extends \core\kernel
      */
     public function testBaseModel()
     {
-        $testModel = new testModel();
+        $testModel = new Test();
 
         $ret = $testModel->all();
 
@@ -133,7 +143,7 @@ class indexController extends \core\kernel
     public function getOne()
     {
         $id = 4;
-        $ret = (new testModel())->getOne($id);
+        $ret = (new Test())->getOne($id);
 
         dump($ret);
     }
@@ -147,7 +157,7 @@ class indexController extends \core\kernel
             'name' => 'just to test'
         ];
         $where = ['name' => 'just to test']; //一般有id就没有where条件
-        $ret = (new testModel())->save($array, $where);
+        $ret = (new Test())->save($array, $where);
         dump($ret);
     }
 
@@ -158,7 +168,7 @@ class indexController extends \core\kernel
         $data = [
             'name' => 'hello world!',
         ];
-        $ret = (new testModel())->setOne(4, $data);
+        $ret = (new Test())->setOne(4, $data);
         //return $ret;
 
         dump($ret);
@@ -172,7 +182,7 @@ class indexController extends \core\kernel
            [ 'name' => 'hello william !'],
            [ 'name' => 'hello william 123!'],
         ];
-        $ret = (new testModel())->add($data);
+        $ret = (new Test())->add($data);
         dump($ret);
         //return $ret;
     }
@@ -189,7 +199,7 @@ class indexController extends \core\kernel
         //删除一条
         //$id = 1;
 
-        $ret = (new testModel())->delById($id);
+        $ret = (new Test())->delById($id);
         dump($ret);
         //return $ret;
     }
@@ -205,7 +215,7 @@ class indexController extends \core\kernel
             ]
         ];
 
-        $ret = (new testModel())->delByWhere($where);
+        $ret = (new Test())->delByWhere($where);
         dump($ret);
         //return $ret;
     }

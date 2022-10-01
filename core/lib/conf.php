@@ -2,7 +2,7 @@
 
 namespace core\lib;
 
-class conf
+class Conf
 {
     // Note: DIRECTORY_SEPARATOR 目录分隔符，在不同系统下，不同，该常量为解决平台兼容性
     static private $coreConfPath = APP_BASE_PATH . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR;

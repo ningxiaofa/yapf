@@ -4,7 +4,7 @@ namespace core\lib\driver\log;
 
 use core\lib\conf;
 
-class file
+class File
 {
     public $path = []; // 日志储存位置
 
