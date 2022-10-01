@@ -18,10 +18,11 @@ class Log
 
     static public function init()
     {
-        //确定存储方式
-        $driver = conf::get('driver', 'log');
-        $class =  '\core\lib\driver\log\\' . $driver;
-        //p($class);exit;
+        // 确定存储方式
+        $driver = Conf::get('driver', 'log');
+        $driver = ucfirst($driver);
+
+        $class = '\config\driver\log\\' . $driver;
         static::$class = new $class;
     }
 

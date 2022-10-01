@@ -1,8 +1,8 @@
 <?php
 
-namespace core\lib\driver\log;
+namespace config\driver\log;
 
-use core\lib\conf;
+use core\lib\Conf;
 
 class File
 {
@@ -10,7 +10,7 @@ class File
 
     public function __construct()
     {
-        $this->path = (conf::get('option', 'log'))['path'];
+        $this->path = (Conf::get('option', 'log'))['path'];
     }
 
     public function log($message, $file = 'log', $type = 'access')

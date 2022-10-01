@@ -2,6 +2,7 @@
 
 namespace core;
 
+use app\controller;
 use core\lib\Log;
 use core\lib\Route;
 use \Exception;
@@ -27,11 +28,18 @@ class Kernel
             // 尽管PHP的class名不区分大小写，但是还是推荐统一严格遵守大小写
             $controllerName = ucfirst($ctrlClass) . 'Controller';
 
-            // 仍自动加载 -- 记得要带上命名空间，[这里有个隐性要求： 命名空间与目录结构一一对应，]
-            // 通过命令空间可以定位到文件所在的目录，从而引入类文件.
-            $controller = '\\' . MODULE . '\controllers\\' . $controllerName;
-            try {
+            $fileController = static::$controllerPath . $controllerName . '.php';
+            // p($fileController); 
+            // Docker: /var/www/html/yapf.test/app/controllers/IndexController.php
+            // Windows: G:\phpstudy_pro\WWW\front_backend\yapf\app\controllers\IndexController.php
+            // Mac: /Users/huangbaoyin/Documents/Env/docker-lnmp-dev-env-sh/html/yapf.test/app/controllers/IndexController.php
+
+            if (is_file($fileController)) {
+                include $fileController;
+                
+                $controller = '\\' . MODULE . '\controllers\\' . $controllerName;
                 $controller = new $controller();
+                
                 // if中逻辑，可自行决定
                 if (!method_exists($controller, $action)) {
                     throw new Exception('NOT FOUND ACTION: ' . $action . ' OF CONTROLLER: ' . $controllerName, 404);
@@ -40,10 +48,13 @@ class Kernel
 
                 // 系统敏感位置, 打上log [为测试, 日志类加载]
                 Log::log('ACCESS CONTROLLER: ' . $controllerName . '  ' . 'ACTION: ' . $action);
-            } catch (\Throwable $th) {
-                // p($th->getMessage()); // string(50) "Class '\app\controllers\Test1Controller' not found"
+            } else {
                 throw new Exception('NOT FOUND CONTROLLER: ' . $controllerName, 404);
             }
+
+            // 优化: 使用自动加载 -- 记得要带上命名空间，[这里有个隐性要求： 命名空间与目录结构一一对应，]
+            // 通过命令空间可以定位到文件所在的目录，从而引入类文件.
+            // 见：core/Kernel.php
 
         } catch (Exception $e) {
             // 根据Code做针对性处理
@@ -65,30 +76,29 @@ class Kernel
     static function load($class)
     {
         // 自动加载类库
-        // new \core\lib\Route(); //正常来说, 应该引入Route类, 然后这么去写.
-        // 但是因为Route类没有include进来, 就会触发index.php[入口文件]中的spl_autoload_register()方法中
-        // 的Kernel::load方法[也就是该方法], 该方法需要传递一个参数, 这个参数就是我们'需要自动引入的类'.
-        // $class = '\core\lib\Route'; // 带命名空间，作用：1. PHP语法要求，处于命名空间下的类，new时，必须带上命名空间 2. 对应到目录找到类文件，从而引入
+        // new \core\route(); //正常来说, 应该引入route类, 然后这么去写.
+        // 但是因为route类没有include进来, 就会触发index.php[入口文件]中的spl_autoload_register()方法中
+        // 的kernel::load方法, 该方法需要传递一个参数, 这个参数就是我们'需要自动引入的类'.
+        // $class = '\core\route';
 
         // 在这个类中要实现的功能是:
-        // 把$class = '\core\lib\Route'; 转化为 下面的路径
-        // APP_BASE_PATH . '/core/lib/Route.php';
-        // $class = serializePath($class, '\\', '/'); // 输出: \core\lib\Route 下同
-        // $class = '/' . $class;
+        // 把$class = '\core\route'; 转化为 下面的路径
+        // APP_BASE_PATH . '/core/route.php';
+
+        //$class = serializePath($class, '\\', '\\'); // 输出: \core\route 下同
+        //$class = '\\' . $class;
 
         if (isset(self::$classMap[$class])) {
             return true;
         } else {
-            $class = serializePath('/' . $class); // e.g.: core\lib\Route --> /core/lib/Route
-            // /var/www/html/yapf.test/core/lib/Route.php，仅仅为了解决当出现不同平台[Windows/*nix]下同时存在正反斜线导致的bug -- TBD, 仍带测试确认
-            $file = serializePath(APP_BASE_PATH . $class . '.php', '\\', '/'); 
+            $class = serializePath('/' . $class);
+            $file = serializePath(APP_BASE_PATH . $class . '.php', '\\', '/');
             if (is_file($file)) {
                 include $file;
                 self::$classMap[$class] = $class;
             } else {
                 return false;
             }
-            return true;
         }
     }
 
