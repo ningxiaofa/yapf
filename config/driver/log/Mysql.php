@@ -1,6 +1,6 @@
 <?php
 
-namespace core\lib\driver\log;
+namespace config\driver\log;
 
 class Mysql
 {

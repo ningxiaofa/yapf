@@ -2,5 +2,5 @@
 *log.php
 vendor/
 .vscode/
-core/conf/database.php
 .history
+config/database.php

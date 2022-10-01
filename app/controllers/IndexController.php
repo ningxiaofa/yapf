@@ -7,7 +7,7 @@ use core\lib\Model;
 use core\lib\Conf;
 use app\models\Test;
 
-class IndexController extends \core\kernel
+class IndexController extends BaseController
 {
     /**
      * 加载控制器/模型 以及测试加载配置[数据库]类

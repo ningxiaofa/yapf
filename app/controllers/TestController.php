@@ -7,8 +7,7 @@ use GuzzleHttp\Client;
 use Exception;
 use League\Csv\Reader;
 
-
-class TestController
+class TestController extends BaseController
 {
     public function index()
     {

@@ -28,7 +28,7 @@ class Model extends Medoo // \PDO [之前是继承\PDO]
         }*/
 
         //--------------------------------------------- 以上是继承\PDO的code
-        $option = conf::all('database');
+        $option = Conf::all('database');
         parent::__construct($option);
     }
 }
