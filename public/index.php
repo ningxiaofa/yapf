@@ -8,7 +8,7 @@
  * 3.启动框架
  */
 
- defined('APP_BASE_PATH') or define('APP_BASE_PATH', dirname(__DIR__));
+defined('APP_BASE_PATH') or define('APP_BASE_PATH', dirname(__DIR__));
 defined('CORE') or define('CORE', APP_BASE_PATH . DIRECTORY_SEPARATOR . 'core');
 defined('APP') or define('APP', APP_BASE_PATH . DIRECTORY_SEPARATOR . 'app');
 // defined('PUBLIC_PATH') or define('PUBLIC_PATH', APP_BASE_PATH . DIRECTORY_SEPARATOR . 'public'); // 使用TBD  至于使用PUBLIC常量名报错的原因TBD
